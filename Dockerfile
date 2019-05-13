@@ -1,3 +1,3 @@
-FROM ubuntu
+FROM alpine
 ENTRYPOINT [ "echo" ]
-CMD [ "hello world v3" ]
+CMD [ "hello world v4" ]
