@@ -1,3 +1,3 @@
 FROM ubuntu
 ENTRYPOINT [ "echo" ]
-CMD [ "hello world v1" ]
+CMD [ "hello world v2" ]
