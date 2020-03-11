@@ -1,3 +1,3 @@
 FROM alpine
 ENTRYPOINT [ "echo" ]
-CMD [ "hello world v11" ]
+CMD [ "hello world v12" ]
