@@ -1,3 +1,4 @@
 FROM alpine
+RUN apk update
 ENTRYPOINT [ "echo" ]
-CMD [ "hello world v13" ]
+CMD [ "hello world v16" ]
