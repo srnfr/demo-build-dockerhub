@@ -1,5 +1,5 @@
 FROM alpine
 RUN apk update
-RUN apk install nginx
+RUN apk add nginx
 ENTRYPOINT [ "echo" ]
 CMD [ "hello world v23" ]
