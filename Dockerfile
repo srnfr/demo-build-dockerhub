@@ -5,4 +5,4 @@ RUN apk add atop
 RUN apk add libcap
 RUN apk add bash
 ENTRYPOINT [ "echo" ]
-CMD [ "hello world v35" ]
+CMD [ "hello world v37" ]
