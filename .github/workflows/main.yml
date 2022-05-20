@@ -16,7 +16,8 @@ env:
 
 jobs:
   build-and-push-image:
-    runs-on: ubuntu-latest
+    ##runs-on: ubuntu-latest
+    runs-on: buildjet-2vcpu-ubuntu-2004
     permissions:
       contents: read
       packages: write
