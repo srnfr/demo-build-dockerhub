@@ -1,4 +1,5 @@
 # demo-build-dockerhub
 
-Dumb demo to demonstrate automatic build between Github and DockerHub
-and GitHub Actions to ghcr.io
+Dumb demo to demonstrate automatic build between 
+- DockerHub
+- GitHub Actions & Buildhet with push to ghcr.io
