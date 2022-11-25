@@ -1,4 +1,4 @@
-FROM alpine:3.14.6
+FROM alpine:3.14.8
 RUN apk update
 RUN apk add apache2
 RUN apk add atop
