@@ -6,4 +6,4 @@ RUN apk add libcap
 RUN apk add bash
 RUN apk add jq
 ENTRYPOINT [ "echo" ]
-CMD [ "hello world v49" ]
+CMD [ "hello world v50" ]
