@@ -5,5 +5,11 @@ RUN apk add atop
 RUN apk add libcap
 RUN apk add bash
 RUN apk add jq
+
+RUN addgroup -S nonroot \
+    && adduser -S nonroot -G nonroot
+
+USER nonroot
+
 ENTRYPOINT [ "echo" ]
 CMD [ "hello world v55" ]
