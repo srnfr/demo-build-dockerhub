@@ -82,8 +82,8 @@ jobs:
 
       - name: Sign image with a key
         run: |
-          cosign sign --key env://COSIGN_PRIVATE_KEY ${TAGS}
+          cosign sign --key env://COSIGN_PRIVATE_KEY ghcr.io/srnfr/demo-build-dockerhub:latest ##${TAGS}
         env:
-          TAGS: ${{ steps.docker_meta.outputs.tags }}
+          ##TAGS: ${{ steps.docker_meta.outputs.tags }}
           COSIGN_PRIVATE_KEY: ${{secrets.COSIGN_PRIVATE_KEY}}
           COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
