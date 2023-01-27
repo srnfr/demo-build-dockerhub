@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - './Dockerfile'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
