@@ -84,6 +84,6 @@ jobs:
         run: |
           cosign sign --key env://COSIGN_PRIVATE_KEY -a "author=srnfr" ${TAGS}
         env:
-          TAGS: ${{ steps.docker_meta.outputs.tags[0] }}
+          TAGS: ${{ fromJSON(steps.meta.outputs.json).tags[0] }}
           COSIGN_PRIVATE_KEY: ${{secrets.COSIGN_PRIVATE_KEY}}
           COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
