@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Create and publish a Docker image to GHCR.IO
+name: Create, publish and Sign a Docker image to GHCR.IO
 
 on:
   push:
@@ -15,7 +15,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-push-image:
+  build-push-and-sign-image:
     ##runs-on: ubuntu-latest
     runs-on: buildjet-2vcpu-ubuntu-2004
     permissions:
