@@ -82,8 +82,8 @@ jobs:
 
       - name: Sign image with a key
         run: |
-          cosign sign --key env://COSIGN_PRIVATE_KEY -a "author=srnfr" ${{ steps.meta.outputs.tags[0] }} ##${TAGS}
+          cosign sign --key env://COSIGN_PRIVATE_KEY -a "author=srnfr" ${TAGS}
         env:
-          ##TAGS: ${{ steps.docker_meta.outputs.tags }}
+          TAGS: ${{ steps.docker_meta.outputs.tags[0] }}
           COSIGN_PRIVATE_KEY: ${{secrets.COSIGN_PRIVATE_KEY}}
           COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
