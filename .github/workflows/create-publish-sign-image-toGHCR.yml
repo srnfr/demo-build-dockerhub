@@ -95,3 +95,8 @@ jobs:
         run: cosign verify --key env://COSIGN_PUBLIC_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
         env:
            COSIGN_PUBLIC_KEY: ${{secrets.COSIGN_PUBLIC_KEY}}
+           
+      - name: Publish SBOM with Anchore
+        uses: anchore/sbom-action/publish-sbom@v0
+        with:
+           sbom-artifact-match: ".*\\.spdx$"
