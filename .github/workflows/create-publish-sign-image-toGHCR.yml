@@ -71,7 +71,12 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-           
+     
+      - name: Attach SBOM to image
+        run: |
+          syft "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}" -o spdx-json=sbom-spdx.json
+          cosign attach sbom --sbom sbom-spdx.json --type spdx "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}"
+          
       - name: Sign image with a key
         run: cosign sign --key env://COSIGN_PRIVATE_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
         env:
@@ -87,13 +92,4 @@ jobs:
         env:
            COSIGN_PUBLIC_KEY: ${{secrets.COSIGN_PUBLIC_KEY}}
            
-      - name: Publish SBOM with Anchore
-        uses: anchore/sbom-action/publish-sbom@v0
-        with:
-           sbom-artifact-match: ".*\\.spdx$"
            
-      - name: Attach SBOM to image
-        run: |
-          syft "${{ env.REGISTRY }}/${IMAGE_NAME}@${{ steps.build-and-push.outputs.digest }}" -o spdx-json=sbom-spdx.json
-          cosign attest --predicate sbom-spdx.json --type spdx "${{ env.REGISTRY }}/${IMAGE_NAME}@${{ steps.build-and-push.outputs.digest }}"
-          echo "::notice title=Verify SBOM attestation::COSIGN_EXPERIMENTAL=1 cosign verify-attestation ${{ env.REGISTRY }}/${IMAGE_NAME}@${{ steps.build-and-push.outputs.digest }} | jq '.payload |= @base64d | .payload | fromjson | select(.predicateType == \"https://spdx.dev/Document\") | .predicate.Data | fromjson'"   
