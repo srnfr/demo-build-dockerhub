@@ -84,7 +84,8 @@ jobs:
       - name: Sign image with a key
         run: |
           ##cosign sign --key env://COSIGN_PRIVATE_KEY -a "author=srnfr" ${TAGS}
-          cosign sign --key env://COSIGN_PRIVATE_KEY -a "author=srnfr" ${TAGS}
+          ##cosign sign --key env://COSIGN_PRIVATE_KEY -a "author=srnfr" ${DIGEST}
+          echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.build-and-push.outputs.digest }}
         env:
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
           TAGS: ${{ fromJSON(steps.meta.outputs.json).tags[0] }}
