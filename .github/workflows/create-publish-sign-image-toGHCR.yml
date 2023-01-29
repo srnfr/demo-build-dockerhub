@@ -82,12 +82,16 @@ jobs:
       ##  run: echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.build-and-push.outputs.digest }}
 
       - name: Sign image with a key
-        run: |
-          ##cosign sign --key env://COSIGN_PRIVATE_KEY -a "author=srnfr" ${TAGS}
-          ##cosign sign --key env://COSIGN_PRIVATE_KEY -a "author=srnfr" ${DIGEST}
-          echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
+        run: echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign --key env://COSIGN_PRIVATE_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
         env:
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
           TAGS: ${{ fromJSON(steps.meta.outputs.json).tags[0] }}
           COSIGN_PRIVATE_KEY: ${{secrets.COSIGN_PRIVATE_KEY}}
           COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
+          ##cosign sign --key env://COSIGN_PRIVATE_KEY -a "author=srnfr" ${TAGS}
+          ##cosign sign --key env://COSIGN_PRIVATE_KEY -a "author=srnfr" ${DIGEST}
+          
+      - name: Verify signature
+        run: cosign verify --key env://COSIGN_PUBLIC_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
+        env:
+           COSIGN_PUBLIC_KEY: ${{env.COSIGN_PUBLIC_KEY}}
