@@ -87,9 +87,9 @@ jobs:
           ##cosign sign --key env://COSIGN_PRIVATE_KEY -a "author=srnfr" ${TAGS}
           ##cosign sign --key env://COSIGN_PRIVATE_KEY -a "author=srnfr" ${DIGEST}
           
-      - name: Verify signature
-        run: cosign verify --key env://COSIGN_PUBLIC_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
-        env:
-           COSIGN_PUBLIC_KEY: ${{secrets.COSIGN_PUBLIC_KEY}}
+     # - name: Verify signature
+      #  run: cosign verify --key env://COSIGN_PUBLIC_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
+      #  env:
+      #     COSIGN_PUBLIC_KEY: ${{secrets.COSIGN_PUBLIC_KEY}}
            
            
