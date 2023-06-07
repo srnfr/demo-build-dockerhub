@@ -4,7 +4,7 @@ Dumb demo to demonstrate automatic build between
 - DockerHub
 - GitHub Actions & Buildjet with push to [ghcr.io/srnfr/demo-build-dockerhub:latest](https://ghcr.io/srnfr/demo-build-dockerhub:latest)
 
-Cosign signature added.
+[Cosign](https://docs.sigstore.dev/cosign/installation/#container-images) signature added.
 SBOM attachment added.
 
 
