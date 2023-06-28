@@ -12,4 +12,4 @@ RUN addgroup -S nonroot \
 USER nonroot
 
 ENTRYPOINT [ "echo" ]
-CMD [ "hello world v75" ]
+CMD [ "hello world v76" ]
