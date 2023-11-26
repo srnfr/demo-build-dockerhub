@@ -9,6 +9,8 @@ on:
        - '**.go'
        - 'go.mod'
        - 'go.sum'
+    tags-ignore:
+      - '*' # Ignore tous les tags
 
 jobs:
 
