@@ -12,10 +12,19 @@ func TestGetVer(t *testing.T) {
     }
 }
 
-func TestGetIP(t *testing.T) {
+func TestGetIPValidJSON(t *testing.T) {
     result := getIP()
     test := fastjson.Validate(result)
     if test != nil {
+        t.Fatalf(`getIP("") = %v`, test)
+    }
+}
+
+func TestGetIPQueryKeyExists(t *testing.T) {
+    result := getIP()
+    want := true
+    test := fastjson.Exists([]byte (result), "query")
+    if test != want {
         t.Fatalf(`getIP("") = %v`, test)
     }
 }
