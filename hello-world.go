@@ -22,8 +22,9 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
+    fmt.Println("Return from ip-api.com: ")
     fmt.Println(string(responseData))
 
 
-    fmt.Println("hello world v82")
+    fmt.Println("hello world v82 !!")
 }
