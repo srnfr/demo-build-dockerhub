@@ -1,13 +1,7 @@
 FROM golang:1.19-alpine
-##FROM alpine:3.18.3
-## MaJ des listes de packages apk
-RUN apk update
-## Ajout de logiciels via apk
-RUN apk add apache2
-RUN apk add atop
-RUN apk add libcap
-RUN apk add bash
-RUN apk add jq
+## MaJ des listes de packages et ajout via apk
+RUN apk update \
+    && apk add apache2 atop libcap bash jq
 
 #RUN mkdir /app
 ## Changement du dir courant dans l'image
