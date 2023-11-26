@@ -1,12 +1,13 @@
 FROM golang:1.19-alpine
 ## MaJ des listes de packages et ajout via apk
 RUN apk update \
-    && apk add apache2 atop libcap bash jq
+    && apk add apache2 atop libcap bash jq \
+    && apk cache clean
 
-#RUN mkdir /app
 ## Changement du dir courant dans l'image
 WORKDIR /src
-## Ajout des modules
+
+## Ajout des modules Go
 COPY go.mod go.sum ./
 RUN go mod download
 
@@ -15,7 +16,7 @@ COPY *.go ./
 ## Compilation du binaire go
 RUN CGO_ENABLED=0 GOOS=linux go build -o /hello-world
 
-## (essai de) nettoyage
+## (essai de) nettoyage du code src
 RUN rm -fR /src
 
 RUN addgroup -S nonroot \
