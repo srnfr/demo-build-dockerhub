@@ -36,7 +36,7 @@ jobs:
       run: go version
 
     - name: Build
-      run: go build -v ./...
+      run: go build -v hello-world.go
 
     - name: Test
       run: go test -v ./...
