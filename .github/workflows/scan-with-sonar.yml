@@ -1,18 +1,16 @@
 name: Scan Code with Sonar
 on:
   push:
-    branches:
-      - master
     paths:
       - './Dockerfile'
-  pull_request:
-    types: [opened, synchronize, reopened]
+      - '**.go'
+
 jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: SonarCloud Scan
