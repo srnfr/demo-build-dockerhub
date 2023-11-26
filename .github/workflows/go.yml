@@ -9,8 +9,6 @@ on:
        - '**.go'
        - 'go.mod'
        - 'go.sum'
-    tags:
-       - 'v*'
 
 jobs:
 
