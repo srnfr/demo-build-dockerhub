@@ -1,3 +1,3 @@
-module srnfr/greetings
+module greetings
 
 go 1.19

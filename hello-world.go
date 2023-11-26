@@ -9,8 +9,7 @@ import (
     "os"
 )
 
-func main() {
-
+func getIP() string {
     response, err := http.Get("http://ip-api.com/json/?fields=query")
 
     if err != nil {
@@ -22,9 +21,20 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
+    return string(responseData)
+
+}
+
+func getVer() int {
+    version:= 82
+    return version
+}
+
+func main() {
+
     fmt.Println("Return from ip-api.com: ")
-    fmt.Println(string(responseData))
+    fmt.Println(string(getIP()))
 
-
-    fmt.Println("hello world v82 !!")
+    version := getVer()
+    fmt.Println(`(new) hello world ` , version)
 }
