@@ -11,7 +11,7 @@ RUN apk add jq
 
 #RUN mkdir /app
 ## Changement du dir courant dans l'image
-WORKDIR /app
+WORKDIR /src
 ## Ajout des modules
 COPY go.mod go.sum ./
 RUN go mod download
@@ -22,7 +22,7 @@ COPY *.go ./
 RUN CGO_ENABLED=0 GOOS=linux go build -o /hello-world
 
 ## (essai de) nettoyage
-RUN rm -f hello-word.go
+RUN rm -fR /src
 
 RUN addgroup -S nonroot \
     && adduser -S nonroot -G nonroot
