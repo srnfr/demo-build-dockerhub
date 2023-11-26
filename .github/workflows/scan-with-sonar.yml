@@ -4,8 +4,9 @@ on:
     paths:
       - './Dockerfile'
       - '**.go'
-    tags-ignore:
-      - '*' # Ignore tous les tags
+    branch:
+      - master
+      - main
 
 jobs:
   sonarcloud:
