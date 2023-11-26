@@ -2,7 +2,7 @@ name: Scan Code with Sonar
 on:
   push:
     paths:
-      - './Dockerfile'
+      - 'Dockerfile'
       - '**.go'
     branch:
       - master
