@@ -36,5 +36,5 @@ func main() {
     fmt.Println(string(getIP()))
 
     version := getVer()
-    fmt.Println(`(new) hello world ` , version)
+    fmt.Println(`(new) hello world version`,version)
 }
