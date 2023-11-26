@@ -5,12 +5,13 @@ name: Go Test
 
 on: 
   push:
+    branch:
+      - main
+      - master
     paths:
        - '**.go'
        - 'go.mod'
        - 'go.sum'
-    tags-ignore:
-      - '*' # Ignore tous les tags
 
 jobs:
 
