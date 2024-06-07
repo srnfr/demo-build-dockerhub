@@ -37,4 +37,6 @@ c) Locate the ```monsbom.sbom``` on the Host's system :
 
 ```docker volume inspect cosign_data```
 
+(usually ```/var/lib/docker/volumes/cosign_data/_data```)
+
 d) Run ```grype monsbom.sbom```
