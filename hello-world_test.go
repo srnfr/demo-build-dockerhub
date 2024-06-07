@@ -6,6 +6,7 @@ import (
 )
 
 func TestGetVer(t *testing.T) {
+    // Verifie que la version est supérieure à 10
     version := getVer()
     if version < 10 {
         t.Fatalf(`getVer("") = %v`, version)
@@ -13,6 +14,7 @@ func TestGetVer(t *testing.T) {
 }
 
 func TestGetIPValidJSON(t *testing.T) {
+    // Verifie que le JSON est valide
     result := getIP()
     test := fastjson.Validate(result)
     if test != nil {
@@ -21,6 +23,7 @@ func TestGetIPValidJSON(t *testing.T) {
 }
 
 func TestGetIPQueryKeyExists(t *testing.T) {
+    //Verifie qu'il existe un champ query dans le JSON
     result := getIP()
     want := true
     test := fastjson.Exists([]byte (result), "query")

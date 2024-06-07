@@ -10,6 +10,7 @@ import (
 )
 
 func getIP() string {
+    // L'API est payant en HTTPS mais tjrs Free en HTTP (??)
     response, err := http.Get("http://ip-api.com/json/?fields=query")
 
     if err != nil {
@@ -26,7 +27,7 @@ func getIP() string {
 }
 
 func getVer() int {
-    version:= 86
+    version:= 87
     return version
 }
 
