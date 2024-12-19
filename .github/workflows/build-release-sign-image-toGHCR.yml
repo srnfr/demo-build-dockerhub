@@ -75,7 +75,7 @@ jobs:
       - name: Attach SBOM to image
         run: |
           syft "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}" -o spdx-json=sbom-spdx.json
-          cosign attach sbom --sbom sbom-spdx.json --type spdx "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}"
+          cosign attest --predicate sbom-spdx.json --type spdx --key env://COSIGN_PRIVATE_KEY "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}"
           
       - name: Sign image with a key
         run: cosign sign -y --key env://COSIGN_PRIVATE_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
