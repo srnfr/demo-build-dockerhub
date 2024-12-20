@@ -78,7 +78,7 @@ jobs:
       - name: Add attestation
         env:
           COSIGN_PRIVATE_KEY: ${{secrets.COSIGN_PRIVATE_KEY}}
-        run: cosign attest --predicate sbom-spdx.json --type spdx --key env://COSIGN_PRIVATE_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }} --verbose
+        run: cosign attest --predicate sbom-spdx.json --type spdx ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }} --verbose
           
       - name: Sign image with a key
         run: cosign sign -y --key env://COSIGN_PRIVATE_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
