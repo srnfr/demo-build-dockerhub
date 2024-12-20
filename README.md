@@ -27,16 +27,30 @@ __Tip__: use the cosign Docker image  (rather than the complex install) :
 
 a) Verify
 
-```docker run gcr.io/projectsigstore/cosign verify --key https://raw.githubusercontent.com/srnfr/demo-build-dockerhub/master/cosign.pub ghcr.io/srnfr/demo-build-dockerhub:latest```
+```bash
+docker run gcr.io/projectsigstore/cosign verify --key https://raw.githubusercontent.com/srnfr/demo-build-dockerhub/master/cosign.pub ghcr.io/srnfr/demo-build-dockerhub:latest
+```
 
 b) Download the SBOM
 
-```docker run -v cosign_data:/home/nonroot gcr.io/projectsigstore/cosign download sbom ghcr.io/srnfr/demo-build-dockerhub --output-file monsbom.sbom```
+```bash
+docker run -v cosign_data:/home/nonroot gcr.io/projectsigstore/cosign download sbom ghcr.io/srnfr/demo-build-dockerhub --output-file monsbom.sbom
+```
 
 c) Locate the ```monsbom.sbom``` on the Host's system :
 
-```docker volume inspect cosign_data```
+```bash
+docker volume inspect cosign_data
+```
 
 (usually ```/var/lib/docker/volumes/cosign_data/_data```)
 
-d) Run ```grype monsbom.sbom```
+d) Install grype 
+```bash
+curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+```
+
+e) Run 
+```bash
+grype monsbom.sbom
+```
