@@ -25,7 +25,7 @@ cosign download sbom ghcr.io/srnfr/demo-build-dockerhub --output-file monsbom.sb
 ```
 
 Then, analyze the vulns with [grype](https://github.com/anchore/grype) : 
-``````bash
+```bash
 grype monsbom.sbom
 ```
 
