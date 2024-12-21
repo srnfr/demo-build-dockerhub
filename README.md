@@ -25,25 +25,20 @@ Then, analyze the vulns with [grype](https://github.com/anchore/grype) :
 
 __Tip__: use the cosign Docker image  (rather than the complex install) :
 
-a) Verify
+a) Verify the iage's signature
 
 ```bash
 docker run gcr.io/projectsigstore/cosign verify --key https://raw.githubusercontent.com/srnfr/demo-build-dockerhub/master/cosign.pub ghcr.io/srnfr/demo-build-dockerhub:latest
 ```
 
-b) Download the SBOM
+b) Download the Attestation
 
 ```bash
-docker run -v cosign_data:/home/nonroot gcr.io/projectsigstore/cosign download sbom ghcr.io/srnfr/demo-build-dockerhub --output-file monsbom.sbom
+docker run gcr.io/projectsigstore/cosign verify-attestation ghcr.io/srnfr/demo-build-dockerhub:v107 --key https://raw.githubusercontent.com/srnfr/demo-build-dockerhub/master/cosign.pub --type spdx > attestation.json
 ```
 
-c) Locate the ```monsbom.sbom``` on the Host's system :
-
-```bash
-docker volume inspect cosign_data
-```
-
-(usually ```/var/lib/docker/volumes/cosign_data/_data```)
+c) Extract the SBOM from attestation
+jq -r '.payload' attestation.json | base64 -d | jq -r '.predicate' > sbom-spdx.json
 
 d) Install grype 
 ```bash
@@ -52,5 +47,9 @@ curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh 
 
 e) Run 
 ```bash
-grype monsbom.sbom
+grype ./sbom-spdx.json
+```
+or 
+```bash
+trivy sbom ./sbom-spdx.json 
 ```
