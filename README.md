@@ -20,7 +20,7 @@ cosign verify --key cosign.pub ghcr.io/srnfr/demo-build-dockerhub:latest
 
 b) download the SBOM : 
 
-``````bash
+```bash
 cosign download sbom ghcr.io/srnfr/demo-build-dockerhub --output-file monsbom.sbom
 ```
 
