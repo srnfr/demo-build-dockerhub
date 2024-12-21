@@ -14,14 +14,20 @@ In order to   :
 
 a) check the image's signature : 
 
-```cosign verify --key cosign.pub ghcr.io/srnfr/demo-build-dockerhub:latest```
+```bash
+cosign verify --key cosign.pub ghcr.io/srnfr/demo-build-dockerhub:latest
+```
 
 b) download the SBOM : 
 
-```cosign download sbom ghcr.io/srnfr/demo-build-dockerhub --output-file monsbom.sbom```
+``````bash
+cosign download sbom ghcr.io/srnfr/demo-build-dockerhub --output-file monsbom.sbom
+```
 
 Then, analyze the vulns with [grype](https://github.com/anchore/grype) : 
-```grype monsbom.sbom```
+``````bash
+grype monsbom.sbom
+```
 
 __Tip__: use the cosign Docker image  (rather than the complex install) :
 
@@ -38,7 +44,9 @@ docker run gcr.io/projectsigstore/cosign verify-attestation ghcr.io/srnfr/demo-b
 ```
 
 c) Extract the SBOM from attestation
+```bash
 jq -r '.payload' attestation.json | base64 -d | jq -r '.predicate' > sbom-spdx.json
+```
 
 d) Install grype 
 ```bash
