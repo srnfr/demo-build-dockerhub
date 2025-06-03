@@ -70,7 +70,8 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # Desactiver à cause d'un timeout
+          #cache-to: type=gha,mode=max
 
       - name: Generate SBOM
         run: syft "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}" -o spdx-json=sbom-spdx.json
