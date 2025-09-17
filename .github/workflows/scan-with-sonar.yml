@@ -1,23 +1,32 @@
 name: Scan Code with Sonar
+
 on:
   push:
     paths:
       - 'Dockerfile'
-      - '**.go'
-    branch:
+      - '**/*.go'
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
       - master
       - main
 
 jobs:
-  sonarcloud:
-    name: SonarCloud
+  sonar:
+    name: SonarQube Cloud
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+          fetch-depth: 0  # recommandé pour une meilleure pertinence d'analyse
+      - name: Sonar Scan
+        uses: SonarSource/sonarqube-scan-action@v5.3.1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        # Optionnel : passer des paramètres ici si tu ne veux pas de fichier sonar-project.properties
+        # with:
+        #   args: >
+        #     -Dsonar.organization=ton-org
+        #     -Dsonar.projectKey=ton-projet
