@@ -22,7 +22,7 @@ jobs:
         with:
           fetch-depth: 0  # recommandé pour une meilleure pertinence d'analyse
       - name: Sonar Scan
-        uses: SonarSource/sonarqube-scan-action@v5.3.1
+        uses: SonarSource/sonarqube-scan-action@v6.0.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         # Optionnel : passer des paramètres ici si tu ne veux pas de fichier sonar-project.properties
