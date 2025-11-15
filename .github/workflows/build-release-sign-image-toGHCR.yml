@@ -1,4 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
+  # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
@@ -75,8 +75,14 @@ jobs:
           #cache-to: type=gha,mode=max
 
       - name: Generate SBOM
-        run: syft "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}" -o spdx-json=sbom-spdx.json
+        run: syft "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}" -o spdx-json > sbom-spdx.json
 
+      - name: 4Debug Inspect SBOM
+        run: |
+          ls -lh sbom-spdx.json
+          head -c 200 sbom-spdx.json || true
+          jq . sbom-spdx.json > /dev/null
+    
       - name: Add attestation
         run: cosign attest -y --predicate sbom-spdx.json --type spdx --key env://COSIGN_PRIVATE_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
         env:
