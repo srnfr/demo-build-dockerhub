@@ -30,8 +30,12 @@ jobs:
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign and test presence in path
         if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@main ##f3c664df7af409cb4873aa5068053ba9d61a57b6  = v2.6.0
+        uses: sigstore/cosign-installer@v4.0.0
+        with:
+          cosign-release: 'v3.0.2'
+          
       - name: Check install!
+        if: github.event_name != 'pull_request'
         run: cosign version
         
       - name: Install Syft
@@ -84,10 +88,11 @@ jobs:
           jq . sbom-spdx.json > /dev/null
     
       - name: Add attestation
-        run: cosign attest -y --predicate sbom-spdx.json --type spdx --key env://COSIGN_PRIVATE_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
+        run: cosign attest -y --predicate sbom-spdx.json --type https://spdx.dev/Document --key env://COSIGN_PRIVATE_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
         env:
           COSIGN_PRIVATE_KEY: ${{secrets.COSIGN_PRIVATE_KEY}}
           COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
+          COSIGN_BUNDLE: "false"
           
       - name: Sign image with a key
         run: cosign sign -y --key env://COSIGN_PRIVATE_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
