@@ -1,7 +1,7 @@
 # demo-build-dockerhub
 
 Dumb demo to demonstrate automatic build with 
-- Go lang compilatation & test on every related push
+- Go lang compilation & test on every related push
 - Docker image building (including go compilation inside Dockerfile) on every new tag
 - CI with GitHub Actions & Buildjet with push to [ghcr.io/srnfr/demo-build-dockerhub:latest](https://ghcr.io/srnfr/demo-build-dockerhub:latest)
 - Asynchronous build with DockerHub registry triggered by Web Hook
