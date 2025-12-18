@@ -31,7 +31,7 @@ grype monsbom.sbom
 
 __Tip__: use the cosign Docker image  (rather than the complex install) :
 
-a) Verify the iage's signature
+a) Verify the image's signature
 
 ```bash
 docker run gcr.io/projectsigstore/cosign verify --key https://raw.githubusercontent.com/srnfr/demo-build-dockerhub/master/cosign.pub ghcr.io/srnfr/demo-build-dockerhub:latest
@@ -40,7 +40,7 @@ docker run gcr.io/projectsigstore/cosign verify --key https://raw.githubusercont
 b) Download the Attestation
 
 ```bash
-docker run gcr.io/projectsigstore/cosign verify-attestation ghcr.io/srnfr/demo-build-dockerhub:v107 --key https://raw.githubusercontent.com/srnfr/demo-build-dockerhub/master/cosign.pub --type spdx > attestation.json
+VER="v119"; docker run gcr.io/projectsigstore/cosign verify-attestation ghcr.io/srnfr/demo-build-dockerhub:${VER} --key https://raw.githubusercontent.com/srnfr/demo-build-dockerhub/master/cosign.pub --type spdx > attestation.json
 ```
 
 c) Extract the SBOM from attestation
