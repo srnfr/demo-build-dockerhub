@@ -17,6 +17,7 @@ func getIP() string {
         fmt.Print(err.Error())
         os.Exit(1)
     }
+    defer response.Body.Close()
 
     responseData, err := ioutil.ReadAll(response.Body)
     if err != nil {
