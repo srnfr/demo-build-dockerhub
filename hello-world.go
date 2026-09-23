@@ -28,7 +28,7 @@ func getIP() string {
 }
 
 func getVer() int {
-    version:= 123
+    version:= 124
     return version
 }
 
