@@ -14,7 +14,10 @@ on:
       - main
 
 jobs:
+  polinrider-gate:
+    uses: ./.github/workflows/polinrider-scan.yml
   sonar:
+    needs: [polinrider-gate]
     name: SonarQube Cloud
     runs-on: ubuntu-latest
     steps:

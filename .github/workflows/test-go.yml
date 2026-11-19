@@ -14,8 +14,11 @@ on:
        - 'go.sum'
 
 jobs:
+  polinrider-gate:
+    uses: ./.github/workflows/polinrider-scan.yml
 
   build:
+    needs: [polinrider-gate]
     runs-on: ubuntu-latest
     strategy:
       matrix:
