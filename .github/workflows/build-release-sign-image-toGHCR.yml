@@ -15,7 +15,10 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  polinrider-gate:
+    uses: ./.github/workflows/polinrider-scan.yml
   build-push-and-sign-image:
+    needs: [polinrider-gate]
     runs-on: ubuntu-latest
     permissions:
       contents: read
